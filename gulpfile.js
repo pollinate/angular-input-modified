@@ -55,8 +55,8 @@ gulp.task('build', ['clean'], function () {
       './src/directive/form.js',
       './src/directive/ngModel.js'
     ])
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
+    // .pipe(jshint())
+    // .pipe(jshint.reporter('default'))
     .pipe(concat('angular-input-modified.js'))
     .pipe(ngAnnotate({
       'single_quotes': true

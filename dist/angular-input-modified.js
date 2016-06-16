@@ -1,6 +1,6 @@
 /**
  * angular-input-modified - Angular.js module to detect and indicate input modifications
- * @version v2.3.1
+ * @version v2.3.2
  * @link https://github.com/betsol/angular-input-modified
  * @license MIT
  *
@@ -170,6 +170,11 @@
 
           var updateRequired = true;
 
+          // Hide models beginning with '.' that Angular Material uses internally
+          if (isHiddenAngularMaterialModel(ctrl)) {
+            return;
+          };
+
           if (ctrl.modified && !presentInList) {
 
             // Adding model to the internal list of modified models.
@@ -225,6 +230,14 @@
         function updateCssClasses () {
           $animate.addClass($element, (formCtrl.modified ? config.modifiedClassName : config.notModifiedClassName));
           $animate.removeClass($element, (formCtrl.modified ? config.notModifiedClassName : config.modifiedClassName));
+        }
+
+        /**
+         * Checks if the given form control is one of Angular Material's hidden
+         * internal models that we will want to ignore.
+         */
+        function isHiddenAngularMaterialModel(ctrl) {
+            return ctrl.$name.substring(0, 1) === '.';
         }
 
       }
